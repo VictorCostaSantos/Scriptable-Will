@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 76fb12bacd4a38249a02b310e93a18de
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inventory: {instanceID: 0}
+  - playerinventoryItemPrefab: {instanceID: 0}
+  - inventoryContainer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
