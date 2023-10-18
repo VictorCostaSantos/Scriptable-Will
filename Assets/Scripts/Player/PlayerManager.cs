@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -8,11 +10,26 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private int PlayerCoinBalance;
+    public TMP_Text textoTMP;
+
+    private void Start()
+    {
+        
+    }
+
+    private string ToString(int v)
+    {
+        throw new NotImplementedException();
+    }
 
     private void Awake()
     {
+        Debug.Log(PlayerCoinBalance);
+        textoTMP.text = PlayerCoinBalance.ToString();
         equipComponent = GetComponent<EquipItemComponent>();
         inventory.OnHandleEquipItem += EquipItemHandler;
+
+
     }
 
     private void EquipItemHandler(Item itemToEquip)
@@ -20,17 +37,46 @@ public class PlayerManager : MonoBehaviour
         switch (itemToEquip.itemType)
         {
             case EItemType.Helmet:
-                Debug.Log("Equipping helmet");
-                equipComponent.EquipHelmet(itemToEquip.itemPrefab);
-                break;
+                if (PlayerCoinBalance > itemToEquip.itemPrice)
+                {
+                    Debug.Log("Equipping helmet");
+                    equipComponent.EquipHelmet(itemToEquip.itemPrefab);
+                    PlayerCoinBalance -= itemToEquip.itemPrice;
+                    print(PlayerCoinBalance);
+                    textoTMP.text = "Coins: " + PlayerCoinBalance.ToString();
+                }
+                else
+                {
+                    print("sem money");
+                }
+                    break;
             case EItemType.Armor:
-                Debug.Log("Equipping armor");
-                equipComponent.EquipArmour(itemToEquip.itemPrefab);
+                if (PlayerCoinBalance > itemToEquip.itemPrice)
+                {
+                    Debug.Log("Equipping armor");
+                    equipComponent.EquipArmour(itemToEquip.itemPrefab);
+                    PlayerCoinBalance -= itemToEquip.itemPrice;
+                    textoTMP.text = "Coins: " + PlayerCoinBalance.ToString();
+                }
+                else
+                {
+                    print("sem money");
+                }
                 break;
 
             case EItemType.Weapon:
-                Debug.Log("Equipping weapon");
-                equipComponent.EquipWeapon(itemToEquip.itemPrefab);
+                if (PlayerCoinBalance > itemToEquip.itemPrice)
+                {
+                    Debug.Log("Equipping weapon");
+                    equipComponent.EquipWeapon(itemToEquip.itemPrefab);
+                    PlayerCoinBalance -= itemToEquip.itemPrice;
+                    textoTMP.text = "Coins: " + PlayerCoinBalance.ToString();
+                }
+                else
+                {
+                    print("sem money");
+                }
+
                 break;
         }
     }
